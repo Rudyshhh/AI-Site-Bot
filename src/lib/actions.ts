@@ -66,7 +66,11 @@ export async function askQuestion(question) {
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
-    return response.text();
+    let answer = response.text();
+
+    answer = answer.replace(/\*/g, "").trim();
+
+    return answer;
   } catch (error) {
     console.error("Error generating answer:", error);
     if (error instanceof Error) {
